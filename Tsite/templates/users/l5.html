@@ -1,0 +1,81 @@
+<html>
+{% load static %}
+
+<head>
+    <title>GLUG PACE - Treasure Hunt 2.0</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static './images/devfavic.png' %}">
+    <style>
+        /* Google Fonts */
+        
+        @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+        /* Global */
+        
+        html {
+            min-height: 100%;
+            overflow: hidden;
+            background: url({% static './images/ECorp.gif' %}) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+        
+        body {
+            height: calc(100vh - 8em);
+            padding: 4em;
+            color: rgba(255, 255, 255, .75);
+            font-family: 'Anonymous Pro', monospace;
+        }
+        
+        .line-1 {
+            position: relative;
+            top: 50%;
+            width: 24em;
+            margin: 0 auto;
+            border-right: 2px solid rgba(255, 255, 255, .75);
+            font-size: 180%;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            transform: translateY(-50%);
+        }
+        /* Animation */
+        
+        .anim-typewriter {
+            animation: typewriter 4s steps(44) 1s 1 normal both, blinkTextCursor 500ms steps(44) infinite normal;
+        }
+        
+        @keyframes typewriter {
+            from {
+                width: 0;
+            }
+            to {
+                width: 24em;
+            }
+        }
+        
+        @keyframes blinkTextCursor {
+            from {
+                border-right-color: rgba(255, 255, 255, .75);
+            }
+            to {
+                border-right-color: transparent;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <p>I do see the beauty in the rules, the invisible code of chaos hiding behind the menacing face of order.</p>
+    </center>
+    <p class="line-1 anim-typewriter">4865792048756e7465722c204865726520697320746</p>
+    <p class="line-1 anim-typewriter">86520636c75652066 6f7220796f757220747265617</p>
+    <p class="line-1 anim-typewriter">37572652e796f752077696c6c2066696e6420697420</p>
+    <p class="line-1 anim-typewriter">696e20224c6f6f6b20616e6420736179222c206a6f6</p>
+    <p class="line-1 anim-typewriter">96e2074686520666972737420313020616e64207069 </p>
+    <p class="line-1 anim-typewriter">636b2074686520636861726163746572206c79696e6</p>
+    <p class="line-1 anim-typewriter">720696e2078313020706c6163652e</p>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="This idea of, there's a locked door; how do you open it? You don't necessarily care what's behind it you're just more excited about opening the lock... It's not about finding the treasure it's more about defeating the puzzle. This idea of, there's a locked door; how do you open it? You don't necessarily care what's behind it you're just more excited about opening the lock... It's not about finding the treasure it's more about defeating the puzzle. Bringing back to you, the Tech Treasure Hunt 2.0">
+    <title>GLUG PACE - Treasure Hunt 2.0</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static './images/devfavic.png' %}">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="{% static './css/main.css' %}">
+</head>
+
+<body>
+
+    <header>
+        <div class="menu-btn">
+            <div class="btn-line"></div>
+            <div class="btn-line"></div>
+            <div class="btn-line"></div>
+        </div>
+        <nav class="menu">
+            <ul class="menu-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <center>
+            {% if success %}
+                <h1 style="font-size: 80px; margin-bottom: 1rem;">CONGRATS</h1>
+                <a href="{% url 'level_2' %}" style="font-size:70px;">{{success}}</a>
+            {% elif wrong%}
+                <script>
+                    alert("{{wrong}}")
+                </script>
+            {% endif %}
+    </center>
+
+    <main class="home" id="home">
+        <section class="hero hero__main">
+            <div class="container">
+                <div class="hero__content">
+                    <h1 class="hero__heading">WELCOME TO THE GAME</h1>
+                    <p>LEVEL 1</p>
+                </div>
+            </div>
+        </section>
+        <section class="hero hero__about" id="about">
+            <div class="container">
+                <div class="about__img" style="opacity: 1;">
+                    <img src="{% static './images/download.png' %}" alt="">
+                </div>
+                <div class="about__info">
+                    <h2 class="section__heading">CLUE TO First:</h2>
+                    <p>We say, We are Not Copycats. This is not a game it is way of life. Life is made easier with the images. Find It ;P </p>
+                    <form method="post" action="{% url 'check_answer' %}">
+                    {% csrf_token %}
+                        Enter the text <input type="text" name="l1_answer">
+                        <button class="btn btn-danger">submit</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero hero__contact " id="contact">
+            <div class="container ">
+                <div class="contact__container ">
+                    <h2 class="section__heading ">CONTACT US</h2>
+                    <p>For any queries, any doubts contact any or all of the co-ordinators</p>
+                </div>
+                <div class="coordintor__container ">
+                    <a href="tel:9632675944" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Shakir</h3>
+                            <p>9632675944</p>
+                        </div>
+                    </a>
+                    <a href="tel:956722485" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Hashir</h3>
+                            <p>956722485</p>
+                        </div>
+                    </a>
+                    <a href="tel:98848752606" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Vishnu</h3>
+                            <p>8848752606</p>
+                        </div>
+                    </a>
+                    <a href="tel:9535989868" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Marzooq</h3>
+                            <p>9535989868</p>
+                        </div>
+                    </a>
+                    <a href="tel:9591589769" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Arkaan</h3>
+                            <p>9591589769</p>
+                        </div>
+                    </a>
+                    <a href="tel:7892648855" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Ansad</h3>
+                            <p>7892648855</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Created with ❤️ by Team <a href="https://glug-pace.tech/" target="_blank ">GLUG PACE</a></p>
+    </footer>
+
+    <script src="{% static './js/main.js' %}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{% static './images/devfavic.png' %}" type="image/x-icon">
+    <title>GLUG PACE 404</title>
+<meta name="description" content="This idea of, there's a locked door; how do you open it? You don't necessarily care what's behind it you're just more excited about opening the lock... It's not about finding the treasure it's more about defeating the puzzle. This idea of, there's a locked door; how do you open it? You don't necessarily care what's behind it you're just more excited about opening the lock... It's not about finding the treasure it's more about defeating the puzzle. Bringing back to you, the Tech Treasure Hunt 2.0">    <link rel="stylesheet" href="{% static './css/404.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="overlay"></div>
+    <div class="terminal">
+        <h1>Error <span class="errorcode">404</span></h1>
+        <p class="output">The page you are looking for might have been removed, had its name changed or is temporarily unavailable</ü>
+            <p class="output">Please try <button onclick="enableAutoplay()" type="button" class="btn btn-success btn-sm">This link</button> or go back</p>
+            <p class="output">Good luck!</p>
+            <br>
+            <p class="output">Patience is bitter, but its fruit is sweet.</p>
+            <p class="output">Trust the process. Your time is coming.</p>
+            <p class="output">Patience is when you’re supposed to get mad, but you choose to understand.</p>
+            <audio controls id="myAudio" style="display:none;">
+                <source src="{% static './audio/TH.mp3' %}" type="audio/mp3">
+            </audio>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = "{% url 'home' %}";
+        }, 27000);
+    </script>
+    <script>
+        var x = document.getElementById("myAudio");
+
+        function enableAutoplay() {
+            x.autoplay = true;
+            x.load();
+        }
+    </script>
+</body>

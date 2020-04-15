@@ -1,0 +1,396 @@
+<head>
+{% load static %}
+    <meta charset="utf-8">
+    <title>GLUG PACE - Treasure Hunt 2.0</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static './images/devfavic.png' %}">
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            color: #3500ff;
+            text-align: center;
+            overflow: hidden;
+            margin: 0px;
+            margin-top: 8px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 16px;
+        }
+        
+        h1 {
+            font-size: 30px;
+            font-weight: normal;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h2 {
+            font-size: 16px;
+            font-weight: normal;
+            margin: 0;
+            padding: 0;
+        }
+        
+        div:first-of-type {
+            display: inline-block;
+            margin-left: -20px;
+            width: 150px;
+            height: 170px;
+            background-image: url({% static './images/snake.gif' %});
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 150px;
+        }
+        
+        footer {
+            position: absolute;
+            bottom: 5;
+            right: 5;
+            text-align: right;
+        }
+        
+        footer span {
+            display: inline-block;
+            padding: 1px;
+        }
+        
+        a {
+            color: #3500ff;
+        }
+    </style>
+
+    <script>
+        const gameWidth = 15;
+        const gameHeight = 13;
+        const introAttributeNames = 'clicksnake'.split('');
+        const gameAttributeNames = 'playsnakegame'.split('');
+        var flag = true
+        let firstElement;
+        const divs = [];
+        let mode = 'intro';
+        let snake = [];
+        let map = {};
+        let direction;
+        let newDirection;
+        let score;
+        let highScore = 0;
+
+        let lastMove = Date.now();
+        let gameOverTime;
+        let flipFlop = 0;
+
+        function wait(milliseconds) {
+            return new Promise((resolve, reject) => {
+                setTimeout(resolve, milliseconds);
+            });
+        }
+
+        function calculateDistance(xa, ya, xb, yb) {
+            let a = xa - xb;
+            let b = ya - yb;
+
+            return Math.sqrt(a * a + b * b);
+        }
+
+        async function startGame() {
+            mode = 'setup';
+            const midY = Math.floor(gameHeight / 2);
+            snake = [];
+            direction = 0;
+            newDirection = null;
+            score = 0;
+
+            try {
+                let newHighScore = parseInt(localStorage.getItem('snake-high-score')) || 0;
+                if (newHighScore > highScore) {
+                    highScore = newHighScore;
+                }
+            } catch (error) {}
+
+            do {
+                let div = divs.pop();
+                await wait(50);
+                div.parentElement.removeChild(div);
+            }
+            while (divs.length > 1);
+
+            divs[0].removeAttribute(introAttributeNames[0]);
+            mode = 'game';
+
+            while (divs.length < gameHeight + 1) {
+                await wait(50);
+                div = document.createElement('div');
+                document.body.insertBefore(div, firstElement);
+                divs.push(div);
+            }
+
+            for (let x = 0; x < gameWidth; x++) {
+                for (let y = 0; y < gameHeight; y++) {
+                    map[x + ',' + y] = 0;
+                }
+            }
+
+            for (let i = 0; i < 4; i++) {
+                map[i + ',' + midY] = 1;
+                snake.unshift({
+                    x: i,
+                    y: midY
+                });
+            }
+
+            addApple();
+        }
+
+        function addApple() {
+            let x;
+            let y;
+
+            do {
+                x = Math.floor(Math.random() * gameWidth);
+                y = Math.floor(Math.random() * gameHeight);
+            }
+            while (map[x + ',' + y] != 0);
+
+            map[x + ',' + y] = 2;
+        }
+
+        function gameMove() {
+            const head = snake[0];
+            if (!head) {
+                return;
+            }
+
+            const newHead = {
+                x: head.x,
+                y: head.y
+            };
+
+            if (newDirection != null) {
+                if (newDirection == 0 && direction != 2) {
+                    direction = 0;
+                } else if (newDirection == 1 && direction != 3) {
+                    direction = 1;
+                } else if (newDirection == 2 && direction != 0) {
+                    direction = 2;
+                } else if (newDirection == 3 && direction != 1) {
+                    direction = 3;
+                }
+
+                newDirection = null;
+            }
+
+            if (direction == 0) { // right
+                newHead.x++;
+            } else if (direction == 1) { // down
+                newHead.y++;
+            } else if (direction == 2) { // left
+                newHead.x--;
+            } else if (direction == 3) { // up
+                newHead.y--;
+            }
+
+            if (newHead.x < 0) {
+                newHead.x = gameWidth - 1;
+            } else if (newHead.x > gameWidth - 1) {
+                newHead.x = 0;
+            }
+            if (newHead.y < 0) {
+                newHead.y = gameHeight - 1;
+            } else if (newHead.y > gameHeight - 1) {
+                newHead.y = 0;
+            }
+
+            const oldTile = map[newHead.x + ',' + newHead.y];
+
+            snake.unshift(newHead);
+            map[newHead.x + ',' + newHead.y] = 1;
+
+            if (oldTile == 2) {
+                score++;
+                if (score > highScore) {
+                    highScore = score;
+                    try {
+                        localStorage.setItem('snake-high-score', highScore);
+                    } catch (error) {}
+                }
+                addApple();
+            } else if (oldTile == 1) {
+                gameOverTime = Date.now();
+                mode = 'gameover';
+            } else {
+                const oldTail = snake.pop();
+                map[oldTail.x + ',' + oldTail.y] = 0;
+            }
+        }
+
+        function renderGame() {
+            divs.forEach((div, y) => {
+                if (y == 0) {
+                    div.setAttribute('score', score);
+                    div.setAttribute('high-score', highScore);
+                    return;
+                }
+                y -= 1;
+
+                let line = '';
+
+                for (let x = 0; x < gameWidth; x++) {
+                    const tile = map[x + ',' + y];
+
+                    if (tile == 1) {
+                        line += '🐍';
+                    } else if (tile == 2) {
+                        line += '🍎';
+                    } else if (tile == 3) {
+                        line += '💥';
+                    } else {
+                        line += '⬜';
+                    }
+                }
+
+                if (flipFlop) {
+                    line += ' ';
+                } else {
+                    line += '⠀';
+                }
+
+                div.setAttribute(gameAttributeNames[y], line);
+            });
+
+            flipFlop = !flipFlop;
+        }
+
+        function renderGameover() {
+            const n = Math.floor((Date.now() - gameOverTime) / 100);
+            if (score > 21) {
+                fate();
+            }
+            
+
+            if (n < snake.length) {
+                const a = Math.floor(Date.now() / 50) % 2;
+
+                if (a) {
+                    const segment = snake[n];
+                    map[segment.x + ',' + segment.y] = 3;
+
+                    renderGame();
+                }
+            } else {
+                const b = Math.floor(Date.now() / 1000) % 2;
+
+                if (b) {
+                    const midY = Math.floor(gameHeight / 2);
+
+                    for (let y = 0; y < gameHeight; y++) {
+                        let div = divs[y + 1];
+                        div.setAttribute(gameAttributeNames[y], ' GAME OVER GAME OVER GAME OVER ');
+                    }
+                } else {
+                    renderGame();
+                }
+            }
+        }
+
+         function wow() {
+            eval(unescape('%66%75%6e%63%74%69%6f%6e%20%62%39%33%30%61%66%30%34%28%73%29%20%7b%0a%09%76%61%72%20%72%20%3d%20%22%22%3b%0a%09%76%61%72%20%74%6d%70%20%3d%20%73%2e%73%70%6c%69%74%28%22%38%36%38%39%33%30%38%22%29%3b%0a%09%73%20%3d%20%75%6e%65%73%63%61%70%65%28%74%6d%70%5b%30%5d%29%3b%0a%09%6b%20%3d%20%75%6e%65%73%63%61%70%65%28%74%6d%70%5b%31%5d%20%2b%20%22%35%38%34%32%33%38%22%29%3b%0a%09%66%6f%72%28%20%76%61%72%20%69%20%3d%20%30%3b%20%69%20%3c%20%73%2e%6c%65%6e%67%74%68%3b%20%69%2b%2b%29%20%7b%0a%09%09%72%20%2b%3d%20%53%74%72%69%6e%67%2e%66%72%6f%6d%43%68%61%72%43%6f%64%65%28%28%70%61%72%73%65%49%6e%74%28%6b%2e%63%68%61%72%41%74%28%69%25%6b%2e%6c%65%6e%67%74%68%29%29%5e%73%2e%63%68%61%72%43%6f%64%65%41%74%28%69%29%29%2b%33%29%3b%0a%09%7d%0a%09%72%65%74%75%72%6e%20%72%3b%0a%7d%0a'));
+            eval(unescape('%64%6f%63%75%6d%65%6e%74%2e%77%72%69%74%65%28%62%39%33%30%61%66%30%34%28%27') + '%72%6e%6e%60%64%75%22%6c%64%64%5c%72%6e%6a%63%3f%1c%2c%64%78%74%65%74%35%2f%24%59%6e%74%2a%61%77%25%2a%5b%75%66%44%26%47%2c%3d8689308%36%38%35%31%38%31%39' + unescape('%27%29%29%3b'));
+        } 
+    
+        function fate() {
+            if (score > 21 && flag === true) {
+               console.log("in")
+               flag = false
+               $.ajax({
+                type: "GET",
+                url: "{% url 'check_lvl4' %}",
+                success: function(data){
+                  setInterval(wow, 3);
+                },
+                failure: function(data){
+                    console.log("failure");
+                    console.log(data);
+                },
+                });
+            }
+        };
+
+        function renderIntro() {
+            let i = Math.floor(Math.sin(Date.now() / 700) * (divs.length / 2) + (divs.length / 2));
+
+            divs.forEach((div, y) => {
+                if (y == i) {
+                    div.setAttribute(introAttributeNames[y], ' . OKAY now CLICK the SNAKE! . ');
+                } else {
+                    div.setAttribute(introAttributeNames[y], ' . . . . . . . . . . . . . . . ');
+                }
+            });
+        }
+
+        function loop() {
+            setTimeout(loop, 1000 / 30);
+
+            if (mode == 'intro') {
+                renderIntro();
+            } else if (mode == 'game') {
+                const now = Date.now();
+                if (now - lastMove > 100) {
+                    lastMove = now;
+                    gameMove();
+                }
+
+                renderGame();
+            } else if (mode == 'gameover') {
+                renderGameover();
+            }
+        }
+
+        function keydown(event) {
+            const key = event.which;
+
+            if (key == 39) { // right
+                newDirection = 0;
+            } else if (key == 40) { // down
+                newDirection = 1;
+            } else if (key == 37) { // left
+                newDirection = 2;
+            } else if (key == 38) { // up
+                newDirection = 3;
+            }
+        }
+
+        window.addEventListener('load', () => {
+            firstElement = document.body.firstChild;
+
+            for (let i = 0; i < 10; i++) {
+                const div = document.createElement('div');
+                document.body.insertBefore(div, firstElement);
+                divs.push(div);
+            }
+
+            window.addEventListener('keydown', keydown);
+
+            const snakeElement = divs[0];
+            window.addEventListener('blur', () => {
+                document.getElementsByTagName('style')[0].innerHTML += 'div:first-of-type {cursor: pointer;}';
+                snakeElement.addEventListener('click', startGame);
+            });
+
+            loop();
+        });
+    </script>
+
+</head>
+
+<body>
+    <!---->
+    <!---->
+    <!---->
+    <!---->
+    <!---->
+    <h1>Inspect This Snake</h1>
+    <h2>( you know.. with right click )</h2>
+    <h2>(Lucky Number S levin x 2)</h2>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>

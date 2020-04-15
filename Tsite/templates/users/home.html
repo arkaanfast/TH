@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+{%load static%} {% load widget_tweaks %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <title>GLUG PACE - Treasure Hunt 2.0</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static './images/devfavic.png' %}">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="{% static './css/main.css' %}">
+</head>
+
+<body>
+
+    {% if ERROR %}
+    <script>
+        alert("NOT REGISTERED")
+    </script>
+    {% endif %}
+
+    <header>
+        <div class="menu-btn">
+            <div class="btn-line"></div>
+            <div class="btn-line"></div>
+            <div class="btn-line"></div>
+        </div>
+        <nav class="menu">
+            <ul class="menu-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#rules">Rules</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#register">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#id01" onclick="document.getElementById('id01').style.display='block'">Login</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- The Modal -->
+    <center>
+        <div id="id01" class="modal">
+            <span style="color:#AD0252" onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+            <!-- Modal Content -->
+            <form class="modal-content animate" method="post" action="{% url 'sign_in' %}">
+                {% csrf_token %}
+                <div class="imgcontainer">
+                    <img src="{% static './images/avtr.png' %}" alt="Avatar" class="avatar" width="5">
+                </div>
+                <center><label for="uname"><b>Email</b></label>
+                    <input type="text" placeholder="Email" name="email" required>
+                    <br>
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Password" name="password" required>
+                    <br>
+                    <button class="cta__button" type="submit">Login</button>
+                    <p>NOT REGISTERED YET CLICK THE LINK BELOW TO REGISTER</p>
+                    <a href="{% url 'register' %}">Register</a>
+                    <a></a>
+                </center>
+        </div>
+        </form>
+        </div>
+    </center>
+
+    <main class="home" id="home">
+        <section class="hero hero__main">
+            <div class="container">
+                <div class="hero__content">
+                    <h1 class="hero__heading">Treasure Hunt 2.0</h1>
+                    <h2>April, 13 <sup>th</sup>, 2020 </h2>
+                    <h4>"This idea of, there's a locked door; how do you open it? You don't necessarily care what's behind it you're just more excited about opening the lock... It's not about finding the treasure it's more about defeating the puzzle." </h4>
+                    <div class="button__container">
+                        <a href="#register" class="cta__button">Register Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero hero__about" id="about">
+            <div class="container">
+                <div class="about__img" style="opacity: 0.75;">
+                    <img src="{% static './images/ab1.jpg' %}" alt="">
+                </div>
+                <div class="about__info">
+                    <h2 class="section__heading">ABOUT THE EVENT</h2>
+                    <p>A Technical Tresure Hunt event, conducted by Glug Pace. This event as the name suggests is a "Treasure Hunt" but "Technical" 
+                        the competition is online you dont need to get out of your seats. This competetion will test your technical skill :) (Dont worry there is no coding invloved)
+                        Its mandatory to do it on a computer. All the best, Stay safe :). With love Glug Pace.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="hero hero__events" id="rules">
+            <div class="container">
+                <h2 class="section__heading">RULES</h2>
+                <div class="event__container">
+                    <figure class="event__card">
+                        <img class="event__image" src="{% static './images/dummy2.jpg' %}" alt="" />
+                        <figcaption>
+                            <div class="event__details">
+                                <h3>RULE 1</h3>
+                                <p>The Treasure Hunt consists of 4-5 clues, each one leading to the next clue. Each correctly solved clue carries 10 points. And final Treasure carries 50 points.</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <figure class="event__card">
+                        <img class="event__image" src="{% static './images/dummy2.jpg' %}" alt="" />
+                        <figcaption>
+                            <div class="event__details">
+                                <h3>RULE 2</h3>
+                                <p>The Treasure Hunt is open for all.</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <figure class="event__card">
+                        <img class="event__image" src="{% static './images/dummy2.jpg' %}" alt="" />
+                        <figcaption>
+                            <div class="event__details">
+                                <h3>RULE 3</h3>
+                                <p>The clues are to be found in a particular order. A person cannot skip a clue. Skipping a clue leads to disqualification.</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <figure class="event__card">
+                        <img class="event__image" src="{% static './images/dummy2.jpg' %}" alt="" />
+                        <figcaption>
+                            <div class="event__details">
+                                <h3>RULE 4</h3>
+                                <p>After each clue is solved, inform any one of the coordinators.</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <figure class="event__card">
+                        <img class="event__image" src="{% static './images/dummy2.jpg' %}" alt="" />
+                        <figcaption>
+                            <div class="event__details">
+                                <h3>RULE 5</h3>
+                                <p>Do not search for clues in off-limit areas.</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <figure class="event__card">
+                        <img class="event__image" src="{% static './images/dummy2.jpg' %}" alt="" />
+                        <figcaption>
+                            <div class="event__details">
+                                <h3>RULE 6</h3>
+                                <p>A person may use smartphones or any internet devices (PC is highly recommended).</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <figure class="event__card">
+                        <img class="event__image" src="{% static './images/dummy2.jpg' %}" alt="" />
+                        <figcaption>
+                            <div class="event__details">
+                                <h3>RULE 7</h3>
+                                <p>Do not move, tamper with or destroy any physical object.</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <figure class="event__card">
+                        <img class="event__image" src="{% static './images/dummy2.jpg' %}" alt="" />
+                        <figcaption>
+                            <div class="event__details">
+                                <h3>RULE 8</h3>
+                                <p>And most importantly use your brain.</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                    <figure class="event__card">
+                        <img class="event__image" src="{% static './images/dummy2.jpg' %}" alt=" " />
+                        <figcaption>
+                            <div class="event__details ">
+                                <h3>RULE 9</h3>
+                                <p>Stay home. Stay safe.</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        {% comment %}
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %} {{form.as_p}} {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}"> {% endif %}
+            <div class="form-group">
+                <button class="cta__button" type="submit">Register</button>
+            </div>
+        </form> {% endcomment %}
+
+
+        <section class="hero hero__main" id="register">
+            <div class="container">
+                <div class="hero__content">
+                    <h1 style="font-size: 50px">Registration</h1>
+                    <form action="{% url 'register' %}" method="post">
+                        {% csrf_token %} {% for hidden_field in form.hidden_fields %} {{ hidden_field }} {% endfor %} {% if request.GET.next %}
+                        <input type="hidden" name="next" value="{{request.GET.next}}"> {% endif %} {% if form.non_field_errors %} {% for error in form.non_field_errors %} {{ error }} {% endfor %} {% endif %} {% for field in form.visible_fields %}
+                        <div class="form-group">
+                            {{ field.label_tag }} {% if form.is_bound %} {% if field.errors %} {% render_field field class="form-control is-invalid" %} {% for error in field.errors %}
+                            <div class="invalid-feedback">
+                                {{ error }}
+                            </div>
+                            {% endfor %} {% else %} {% render_field field class="form-control is-valid" %} {% endif %} {% else %} {% render_field field class="form-control" %} {% endif %} {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small> {% endif %}
+                        </div>
+                        {% endfor %} {% comment %}
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" name="first-name" id="first-name" placeholder="First Name"> {{form.fields}}
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" name="last-name" id="last-name" placeholder="Last Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" name="phone" id="phone" placeholder="(000-0000-00)">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">College</label>
+                            <input type="text" name="college" id="college" placeholder="College Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="password-confirm">Semester</label>
+                            <input type="text" name="sem" id="sem" placeholder="Current Semester">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="password-confirm">Confirm Password</label>
+                            <input type="password" name="password-confirm" id="password-confirm" placeholder="Confirm Password">
+                        </div>
+                </div> {% endcomment %}
+                <br> {%if form%}
+                <center>
+                    <div class="button__container">
+                        <button class="cta__button" type="submit">Register</button>
+                    </div>
+                </center>
+                {% else %}
+                <center>
+                    <div class="button__container">
+                        <button class="cta__button" type="submit">CLICK HERE TO REGISTER</button>
+                    </div>
+                </center>
+                {% endif %}
+                <center>
+                    <p>ALREADY REGISTERD ? <a href="#id01" onclick="document.getElementById('id01').style.display='block'">CLICK TO SIGN IN </a></p>
+                </center>
+                </form>
+            </div>
+            </div>
+        </section>
+
+        <section class="hero hero__contact " id="contact">
+            <div class="container ">
+                <div class="contact__container ">
+                    <h2 class="section__heading ">CONTACT US</h2>
+                    <p>For any queries, any doubts contact any or all of the co-ordinators</p>
+                </div>
+                <div class="coordintor__container ">
+                    <a href="tel:9632675944" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Shakir</h3>
+                            <p>9632675944</p>
+                        </div>
+                    </a>
+                    <a href="tel:956722485" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Hashir</h3>
+                            <p>956722485</p>
+                        </div>
+                    </a>
+                    <a href="tel:98848752606" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Vishnu</h3>
+                            <p>8848752606</p>
+                        </div>
+                    </a>
+                    <a href="tel:9535989868" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Marzooq</h3>
+                            <p>9535989868</p>
+                        </div>
+                    </a>
+                    <a href="tel:9591589769" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Arkaan</h3>
+                            <p>9591589769</p>
+                        </div>
+                    </a>
+                    <a href="tel:7892648855" style="text-decoration: none; color: aliceblue;">
+                        <div class="coordinator__info ">
+                            <h3>Ansad</h3>
+                            <p>7892648855</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Created with ❤️ by Team <a href="https://glug-pace.tech/" target="_blank ">GLUG PACE</a></p>
+    </footer>
+
+    <script src="{% static './js/main.js' %}"></script>
+
+</body>
+
+</html>

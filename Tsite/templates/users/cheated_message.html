@@ -1,0 +1,31 @@
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="">
+    <title>GLUG PACE - Treasure Hunt 2.0</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static './images/devfavic.png' %}">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" href="{% static './css/main.css' %}">
+</head>
+
+<body>
+
+   <main class="home" id="home">
+        <section class="hero hero__main">
+            <div class="container">
+                <div class="hero__content">
+                    <h1 class="hero__heading">NO CHEATING :)</h1>
+                    <p>THIS IS A WARNING :))</p>
+                    <a href="{% url 'redirect_user' %}">CLICK TO GO BACK</a>
+                </div>
+                {% if permission %}
+                    <div class="hero__content">
+                        <h1 class="hero__heading">{{permission}}</h1>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </main>
