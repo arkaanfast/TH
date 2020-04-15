@@ -134,7 +134,7 @@ def level_4(request):
 
     submissions = Submissions.objects.get(name=request.user)
     if request.method == "POST":
-        answer_key = AnswersKey.objects.get(a=2)
+        answer_key = AnswersKey.objects.get(a=3)
         answer = answer_key.lvl_4
         submitted_file = request.FILES['l4_answer']
         submissions.l4 = submitted_file
@@ -194,7 +194,7 @@ def check_answer(request):
     if request.method == "POST":
         submit = Submissions.objects.get(name=request.user)
         answer = request.POST["l1_answer"]
-        answer_key = AnswersKey.objects.get(a=2)
+        answer_key = AnswersKey.objects.get(a=3)
         lvl1_answer = answer_key.lvl_1
         if answer == lvl1_answer:
             submit.l1 = answer
