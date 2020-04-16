@@ -139,8 +139,10 @@ def level_4(request):
         submitted_file = request.FILES['l4_answer']
         submissions.l4 = submitted_file
         submissions.save()
-        submitted_image = cv2.imread(submissions.l4.url)
-        answer_image = cv2.imread(answer.url)
+#         submitted_image = cv2.imread(submissions.l4.url)
+#         answer_image = cv2.imread(answer.url)
+        submitted_image = cv2.imread(submissions.l4.path)
+        answer_image = cv2.imread(answer.path)
 
         # converting the image to black and white :)
         # gray_scale = cv2.cvtColor(submitted_image, cv2.COLOR_BGR2GRAY)
@@ -229,7 +231,6 @@ def l4(request):
 
     try:
         flag = request.session["lvl3_done"]
-        print(flag)
         submissions = Submissions.objects.get(name=request.user)
         submissions.l3 = "Submitted"
         submissions.l3_time = timezone.now()
