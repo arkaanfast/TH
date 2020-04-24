@@ -52,7 +52,7 @@ def sign_in(request):
             return redirect("level_1")
 
     else:
-        return render(request, 'users/home.html', {"ERROR": "NOT REGISTERD"})
+        return render(request, 'users/home.html', {"ERROR": "EMAIL OR PASSWORD IS INCORRECT"})
 # Signin ends here
 
 # Registration 
@@ -153,14 +153,11 @@ def level_4(request):
         if cv2.countNonZero(b) == 0 and cv2.countNonZero(g) == 0 and cv2.countNonZero(r) == 0:
            submissions.l4_time = timezone.now()
            submissions.save()
-        # change the html over here to lvl 5  
+        # change the html over here to lvl
            return redirect("level_5")
         else:
             submissions.l4.delete()
             return render(request, "users/l4.html", {"fail": "try again :) (make sure its in black and white)"})
-        
-        
-        
     if submissions.l4:
         return redirect("level_5")
     if submissions.l3:
@@ -178,15 +175,12 @@ def level_5(request):
         return render(request,"users/last_page.html")
     else:
         return render(request, "users/cheated_message.html")
-    
 def hidden(request):
-    
     submissions = Submissions.objects.get(name=request.user)
     if submissions.l4:
         return render(request,"users/l5.html")
     else:
         return render(request, "users/cheated_message.html")
-    
 # rendering end here
 
 
@@ -205,7 +199,7 @@ def check_answer(request):
             return render(request, "users/l1.html", {"success": "Advanced to the next level congrats :)"})
         else:
             return render(request, "users/l1.html", {"wrong": "Please try Again"})
-    
+
     if not request.user.is_admin:
 
         return render(request, "users/cheated_message.html")
@@ -228,7 +222,6 @@ def redirect_user(request):
 
 @login_required(login_url='register')
 def l4(request):
-
     try:
         flag = request.session["lvl3_done"]
         submissions = Submissions.objects.get(name=request.user)
@@ -242,70 +235,5 @@ def l4(request):
 
 @login_required(login_url='register')
 def lv4_check(request):
-
     request.session["lvl3_done"] = "Yes"
-    return JsonResponse({'response': 'success'})
-
-    
-
-# @login_required(login_url='register')
-# def for_admin(request):
-
-#     if request.user.is_admin:
-#         all_submissions = Submissions.objects.all()
-#         min_time1 = 999
-#         min_time2 = 999
-#         min_time3 = 999
-#         list_in_order = []
-#         first_3 = []
-#         count = 0
-#         for submissions in all_submissions:
-#             if submissions.l5:
-#                 if submissions.l5_time < min_time:
-#                     min_time = submissions.l5_time
-#                     if count < 3
-#                         first_3.append(submissions.name)
-#                         count += 1
-#                 else:
-#                     list_in_order.append(submissions.name)
-#             if submissions.l4:
-#                 if submissions.l4_time < min:
-#                     if count < 3
-#                         first_3.append(submissions.name)
-#                         count += 1
-#                     else:
-#                         list_in_order.append(submissions.name)
-
-#     else:
-#         return redirect(request, "users/cheated_message.html", {"permission": "restricted for you :)"})                
-
-        
-
-# def solution(request):
-
-#     try:
-#         user = Student.objects.get(usn = '4pa17cs000' )
-#     except Student.DoesNotExist:
-#         return messages.error("Usn not found")
-
-#     if request.method == 'POST':
-#         post_data = (request.POST)
-#         try:
-#             ans = Answer.objects.get(name = user)
-#             form = AnswerForm(post_data, instance=ans)
-#         except Answer.DoesNotExist:
-#             form = AnswerForm(post_data)
-
-#         if form.is_valid():
-#             ans = form.save(commit=False)
-#             ans.name = user
-#             ans.save()
-#             print(ans)
-#             return redirect('solution')
-#     else:
-#         try:
-#             ans = Answer.objects.get(name = user)
-#             form = AnswerForm(instance=ans)
-#         except Answer.DoesNotExist:
-#             form = AnswerForm()
-#         return render(request,'users/base.html',{'form':form})
+    return JsonResponse({'response': f'success {request.session["lvl3_done"]}'})

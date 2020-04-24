@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="">
+    <meta name="description" content="This idea of, there's a locked door; how do you open it? You don't necessarily care what's behind it you're just more excited about opening the lock... It's not about finding the treasure it's more about defeating the puzzle. Bringing back to you, the Tech Treasure Hunt 2.0">
     <title>GLUG PACE - Treasure Hunt 2.0</title>
     <link rel="shortcut icon" type="image/x-icon" href="{% static './images/devfavic.png' %}">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -53,7 +54,7 @@
 
     <!-- The Modal -->
     <center>
-        <div id="id01" class="modal">
+        <div id="id01" class="modal form-group">
             <span style="color:#AD0252" onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
 
             <!-- Modal Content -->
@@ -62,14 +63,19 @@
                 <div class="imgcontainer">
                     <img src="{% static './images/avtr.png' %}" alt="Avatar" class="avatar" width="5">
                 </div>
-                <center><label for="uname"><b>Email</b></label>
-                    <input type="text" placeholder="Email" name="email" required>
-                    <br>
-                    <label for="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Password" name="password" required>
-                    <br>
+                <center>
+	           <div class="form-group">
+		    	<label for="uname"><b>Email</b></label>
+                    	<input type="text" placeholder="Email" name="email" required>
+		   </div>
+                   <br>
+		   <div class="form-group">
+                   	<label for="psw"><b>Password</b></label>
+                    	<input type="password" placeholder="Password" name="password" required>
+	           </div>
+                   <br>
                     <button class="cta__button" type="submit">Login</button>
-                    <p>NOT REGISTERED YET CLICK THE LINK BELOW TO REGISTER</p>
+                    <p>NOT REGISTERED YET CLICK THE LINK BELOW TO REGISTER ? </p>
                     <a href="{% url 'register' %}">Register</a>
                     <a></a>
                 </center>

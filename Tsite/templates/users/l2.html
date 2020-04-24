@@ -215,6 +215,7 @@
                             </div>
                         </figcaption>
                     </figure>
+		   {% if again %}
                     <figure class="event__card">
                         <img class="event__image" src="{% static './images/th1.jpg' %}" alt="" />
                         <figcaption>
@@ -224,6 +225,17 @@
                             </div>
                         </figcaption>
                     </figure>
+	            {% else %}
+                    <figure class="event__card">
+                        <img class="event__image" src="{% static './images/th1.jpg' %}" alt="" />
+                        <figcaption>
+                            <div class="event__details">
+                                <h3>CLUE</h3>
+                                <p>Text</p>
+                            </div>
+                        </figcaption>
+                    </figure>
+		   {% endif %}
                     <figure class="event__card">
                         <img class="event__image" src="{% static './images/th1.jpg' %}" alt=" " />
                         <figcaption>
