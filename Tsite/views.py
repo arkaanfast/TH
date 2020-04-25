@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login
 from django.utils import timezone
 from django.http import JsonResponse
 import cv2
+import os
 # Create your views here.
 
 
@@ -134,30 +135,29 @@ def level_4(request):
 
     submissions = Submissions.objects.get(name=request.user)
     if request.method == "POST":
-        answer_key = AnswersKey.objects.get(a=3)
-        answer = answer_key.lvl_4
-        submitted_file = request.FILES['l4_answer']
-        submissions.l4 = submitted_file
-        submissions.save()
-#         submitted_image = cv2.imread(submissions.l4.url)
-#         answer_image = cv2.imread(answer.url)
-        submitted_image = cv2.imread(submissions.l4.path)
-        answer_image = cv2.imread(answer.path)
-
-        # converting the image to black and white :)
-        # gray_scale = cv2.cvtColor(submitted_image, cv2.COLOR_BGR2GRAY)
-        # tresh, bw_image = cv2.threshold(gray_scale, 127, 255, cv2.THRESH_BINARY)
-
-        difference = cv2.subtract(submitted_image, answer_image)
-        b, g, r = cv2.split(difference)
-        if cv2.countNonZero(b) == 0 and cv2.countNonZero(g) == 0 and cv2.countNonZero(r) == 0:
-           submissions.l4_time = timezone.now()
-           submissions.save()
-        # change the html over here to lvl
-           return redirect("level_5")
-        else:
+        try:
+            answer_key = AnswersKey.objects.get(a=3)
+            answer = answer_key.lvl_4
+            submitted_file = request.FILES['l4_answer']
+            submissions.l4 = submitted_file
+            submissions.save()
+            submitted_image = cv2.imread(submissions.l4.path)
+            answer_image = cv2.imread(answer.path)
+            difference = cv2.subtract(submitted_image, answer_image)
+            b, g, r = cv2.split(difference)
+            if cv2.countNonZero(b) == 0 and cv2.countNonZero(g) == 0 and cv2.countNonZero(r) == 0:
+                submissions.l4_time = timezone.now()
+                submissions.save()
+                return redirect("level_5")
+            else:
+                os.remove(submissions.l4.path)
+                submissions.l4_delete()
+                return render(request, "users/l4.html", {"fail": "try again :) (make sure its in black and white)"})
+        except:
+            os.remove(submissions.l4.path)
             submissions.l4.delete()
             return render(request, "users/l4.html", {"fail": "try again :) (make sure its in black and white)"})
+
     if submissions.l4:
         return redirect("level_5")
     if submissions.l3:

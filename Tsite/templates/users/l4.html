@@ -55,7 +55,7 @@
                     <p>The image says it all. Modern day Leonardo da Vinci can it make out.</p>
                     <form action="{% url 'level_4' %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <input type="file" id="myfile" name="l4_answer" accept="image/*">
+                        <input type="file" id="myfile" name="l4_answer" accept="image/*" required>
                         <button class="cta__button">submit</button>
                     </form>
                 </div>

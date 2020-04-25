@@ -31,8 +31,8 @@
 
     <center>
             {% if success %}
-                <h1 style="font-size: 80px; margin-bottom: 1rem;">CONGRATS</h1>
-                <a href="{% url 'level_2' %}" style="font-size:70px;">{{success}}</a>
+                <h3 style="font-size: 80px; margin-bottom: 1rem;">CONGRATS</h1>
+                <a href="{% url 'level_2' %}" style="text-decoration: none; color: white;">{{success}}</a>
             {% elif wrong%}
                 <script>
                     alert("{{wrong}}")
