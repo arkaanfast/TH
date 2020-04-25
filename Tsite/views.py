@@ -150,11 +150,9 @@ def level_4(request):
                 submissions.save()
                 return redirect("level_5")
             else:
-                os.remove(submissions.l4.path)
-                submissions.l4_delete()
+                submissions.l4.delete()
                 return render(request, "users/l4.html", {"fail": "try again :) (make sure its in black and white)"})
         except:
-            os.remove(submissions.l4.path)
             submissions.l4.delete()
             return render(request, "users/l4.html", {"fail": "try again :) (make sure its in black and white)"})
 
