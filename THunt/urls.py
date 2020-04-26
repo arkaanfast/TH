@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from Tsite import views as user_views
+from phase_2 import views 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include("Tsite.urls")),
+    path("phase2/", include("phase_2.urls"))
 ]
 

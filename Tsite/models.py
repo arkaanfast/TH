@@ -86,11 +86,16 @@ class Submissions(models.Model):
     l3 = models.CharField(max_length=200, null=True, blank=True)
     l4 = models.ImageField(null=True, blank=True)
     l5 = models.CharField(max_length=200, null=True, blank=True)
+    phase_2 = models.CharField(max_length=50, null=True, blank=True)
+    # phase 2 levels:
+    l6 = models.CharField(max_length=200, null=True, blank=True)
     l1_time = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
     l2_time = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
     l3_time = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
     l4_time = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
     l5_time = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
+    l6_time = models.DateTimeField(null=True, blank=True, auto_now=False, auto_now_add=False)
+
 
     def __str__(self):
         return self.name.username
@@ -131,6 +136,7 @@ class AnswersKey(models.Model):
     lvl_3 = models.CharField(max_length=200, null=True, blank=True)
     lvl_4= models.ImageField(blank=True, null=True)
     lvl_5 = models.CharField(max_length=200, null=True, blank=True)
+    lvl_6 = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return "ANSWER KEY"

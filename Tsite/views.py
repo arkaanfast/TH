@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login
 from django.utils import timezone
 from django.http import JsonResponse
+from phase_2.views import level_6
 import cv2
 import os
 # Create your views here.
@@ -41,6 +42,8 @@ def sign_in(request):
     if user:
         login(request, user)
         submissions = Submissions.objects.get(name=request.user)
+        if submissions.phase_2:
+            return redirect("level_6")
         if submissions.l4:
             return redirect("level_5")
         if submissions.l3:
@@ -71,7 +74,6 @@ def register(request):
             password = form.cleaned_data["password1"]
             user = authenticate(username=email, password=password)
             if user:
-                authenticated = True
                 subssion = Submissions(name=user)
                 subssion.save()
                 login(request, user)
@@ -91,6 +93,8 @@ def register(request):
 @login_required(login_url='register')
 def level_1(request):
     submissions = Submissions.objects.get(name=request.user)
+    if submissions.phase_2:
+        return redirect("level_6")
     if submissions.l4:
         return redirect("level_5")
     if submissions.l3:
@@ -105,6 +109,8 @@ def level_1(request):
 @login_required(login_url='register')
 def level_2(request):
     submissions = Submissions.objects.get(name=request.user)
+    if submissions.phase_2:
+        return redirect("level_6")
     if submissions.l4:
         return render(request,"users/l2.html", {"again": "Welcome back :)"})
     if submissions.l3:
@@ -120,6 +126,8 @@ def level_2(request):
 @login_required(login_url='register')
 def level_3(request):
     submissions = Submissions.objects.get(name=request.user)
+    if submissions.phase_2:
+        return redirect("level_6")
     if submissions.l4:
         return redirect("level_5")
     if submissions.l3:
@@ -155,7 +163,9 @@ def level_4(request):
         except:
             submissions.l4.delete()
             return render(request, "users/l4.html", {"fail": "try again :) (make sure its in black and white)"})
-
+    
+    if submissions.phase_2:
+        return redirect("level_6")
     if submissions.l4:
         return redirect("level_5")
     if submissions.l3:
@@ -207,6 +217,8 @@ def check_answer(request):
 @login_required(login_url='register')
 def redirect_user(request):
     submissions = Submissions.objects.get(name=request.user)
+    if submissions.phase_2:
+        return redirect("level_6")
     if submissions.l4:
         return redirect("level_5")
     if submissions.l3:

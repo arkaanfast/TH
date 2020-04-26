@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+    <!-- 
+    	Brownie Template
+    	http://www.templatemo.com/preview/templatemo_440_brownie
+
+    	Credits:
+    	http://sorgalla.com/jcarousel/
+    	http://unsplash.com
+    	http://absurdwordpreferred.deviantart.com/art/FREE-Cogs-Transparent-PNG-145452644
+    -->
+    <title>Snowden</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static './images/devfavic.png' %}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+    <link href="{% static './css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static './css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static './css/templatemo_style.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <nav id="responsive-menu">
+        <ul class="menu-holder">
+            <li class="active"><a href="#home"><i class="fa fa-home"></i>Suspect</a></li>
+            <li><a href="#about"><i class="fa fa-briefcase"></i>Crime</a></li>
+            <li><a href="#contact"><i class="fa fa-envelope"></i>Contact</a></li>
+        </ul>
+    </nav>
+    <center>
+            {% if success %}
+                <h3 style="font-size: 80px; margin-bottom: 1rem;">CONGRATS</h1>
+                <a href="#" style="text-decoration: none; color: white;">{{success}}</a>
+            {% elif wrong%}
+                <script>
+                    alert("{{wrong}}")
+                </script>
+            {% endif %}
+    </center>
+    <div class="templatemo-site-header">
+        <div class="container">
+            <div class="row templatemo-position-relative">
+                <nav class="hidden-xs text-uppercase templatemo-nav">
+                    <ul class="menu-holder">
+                        <li class="active"><a href="#home">Suspect</a></li>
+                        <li><a href="#about">Crime</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <h1 class="templatemo-site-name">
+                    <span class="templatemo-brown">STATUS:</span>
+                    <span class="templatemo-gold">WANTED</span>
+                </h1>
+                <div class="text-right visible-xs">
+                    <a href="#" id="mobile_menu"><span class="fa fa-bars"></span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="home" class="templatemo-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 templatemo-position-relative">
+                    <div class="templatemo-flex-center templatemo-black-bg text-center">
+                        <div class="templatemo-home-image-container">
+                            <img src="{% static './images/sn.jpg' %}" alt="Home" class="templatemo-home-image">
+                            <div class="templatemo-image-overlay">
+                                <span class="fa fa-search templatemo-search-icon"></span>
+                                <p class="text-uppercase templatemo-gold">NSA</p>
+                                <p class="text-uppercase">Search Data Base</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="templatemo-content-box templatemo-second-box">
+                        <h2 class="templatemo-brown">Edward Snowden</h2>
+                        <h3 class="templatemo-gold">Former agent, National Security Agency.</h3>
+                        <p class="margin-top-30">
+                            Basic Training: U.S Army to the Special Forces. <br>Injury: Fractured tibia; Administrative discharge. <br>Central Intelligence Agency: Disqualified. <br>Location: Classified. <br>Deployment: The Farm.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="about" class="templatemo-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="templatemo-content-box text-right">
+                        <h2 class="templatemo-brown">
+                            <span class="templatemo-section-title">Accomplice/Crime</span>
+                        </h2>
+                        <p class="margin-top-30">Theft of government property and two counts of violating the Espionage Act of 1917 through unauthorized communication of national defense information and willful communication of classified communications intelligence information
+                            to an unauthorized person.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="templatemo-flex-center templatemo-black-bg">
+                        <div class="templatemo-flex-center templatemo-brown-rectangle-bg">
+                            <div class="jcarousel-wrapper templatemo-team">
+                                <div class="jcarousel">
+                                    <ul>
+                                        <li>
+                                            <div class="text-center templatemo-team-member-container">
+                                                <div class="templatemo-member-img-container">
+                                                    <img src="{% static './images/team-img-frame.png' %}" alt="Team img frame" class="templatemo-img-frame">
+                                                    <img src="{% static './images/team-member-1.jpg' %}" alt="Team Member 1" class="tm-team-member-img">
+                                                </div>
+                                                <h3 class="tm-team-member-title templatemo-gold text-uppercase margin-top-15">Lindsay Mills</h3>
+                                                <img src="{% static './images/underline.png' %}" alt="Underline" class="margin-top-15 img-responsive center-block">
+                                                <p class="margin-top-15">Ribendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+                                                <p class="templatemo-brown text-uppercase">Acrobat and Blogger</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="text-center templatemo-team-member-container">
+                                                <div class="templatemo-member-img-container">
+                                                    <img src="{% static './images/team-img-frame.png' %}" alt="Team img frame" class="templatemo-img-frame">
+                                                    <img src="{% static './images/team-member-2.jpg' %}" alt="Team Member 2" class="img-circle tm-team-member-img">
+                                                </div>
+                                                <h3 class="tm-team-member-title templatemo-gold text-uppercase margin-top-15">Ewen MacAskill</h3>
+                                                <img src="{% static './images/underline.png' %}" alt="Underline" class="margin-top-15">
+                                                <p class="margin-top-15">Aenean sollicitudin, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+                                                <p class="templatemo-brown text-uppercase">Journalist</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="text-center templatemo-team-member-container">
+                                                <div class="templatemo-member-img-container">
+                                                    <img src="{% static './images/team-img-frame.png' %}" alt="Team img frame" class="templatemo-img-frame">
+                                                    <img src="{% static './images/team-member-3.jpg' %}" alt="Team Member 3" class="img-circle tm-team-member-img">
+                                                </div>
+                                                <h3 class="tm-team-member-title templatemo-gold text-uppercase margin-top-15">Rubix</h3>
+                                                <img src="{% static './images/underline.png' %}" alt="Underline" class="margin-top-15">
+                                                <p class="margin-top-15">Ribendum auctornisi elit consequat ipsum, nisi elit sem nibh id elit.</p>
+                                                <p class="templatemo-brown text-uppercase">MicroSD</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <a href="#" class="jcarousel-control-prev inactive">&lsaquo;</a>
+                                <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="templatemo-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="templatemo-flex-center templatemo-black-bg">
+                        <form action="{% url 'check_ans' %}" method="post">
+                        {% csrf_token %}
+                            <div class="tm-contact-form">
+                                <div class="form-group">
+                                    <input type="text" id="contact_name" class="form-control" placeholder="Name..." />
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" id="contact_email" class="form-control" placeholder="Email..." />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" id="contact_subject" class="form-control" placeholder="Subject..." />
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="contact_message" class="form-control" rows="8" placeholder="Message..." name="contact"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn text-uppercase templatemo-btn templatemo-send-btn">Send</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="templatemo-content-box templatemo-second-box">
+                        <h2 class="templatemo-brown">Get In <span class="templatemo-gold">Touch</span></h2>
+                        <p class="margin-top-30">-.-. .- .-. .-. --- - ....... ..-. .. .- ... -.-. --- ....... -. . .--. .... . .-- ....... ... .--. .-. .. -. --. ....... .-. .- -... -... .. - ....... ... --- -. .- - .- ....... - .- .. .-.. --- .-. ....... -... ..- .-. . .- ..-
+                            ....... .-.. . --. .- -.-. -.-- ....... -.-. --- .-. --- -. .- ....... - .-. .- ...- . .-.. ....... -... .. -.- .. -. .. ....... --- -... .--- . -.-. - ....... .... .- .--. .--. . -. ....... ... --- ..-. - . -. ....... .--.
+                            .. -.-. -. .. -.-. ....... --- .--. - .. --- -. ....... .-- .- .. - . -.. ....... . ..-. ..-. .. --. -.-- ....... .- -.. ...- . .-. -... ....... .-. . .--. --- .-. - ....... .- -.-. -.-. ..- ... . ....... .- -. .. -- .- .-..
+                            ....... ... .... .-. .. . -.- ....... . ... - . . -- ....... --- -.-- ... - . .-. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="container margin-top-30">
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="templatemo-copyright-container text-uppercase small templatemo-brown">
+                    <center><span class="templatemo-copyright-text"><a href="#" class="templatemo-gold">Copyright &copy; 2084 NSA</a></span></center>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static './js/jquery-1.11.1.min.js' %}"></script>
+    <script src="{% static './js/jquery.jcarousel.min.js' %}"></script>
+    <script src="{% static './js/templatemo_script.js' %}"></script>
+</body>
+
+</html>
